@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     {
         //Ray
         Debug.DrawRay(theCam.transform.position, theCam.transform.forward, new Color(0, 1, 0));
-        if (Physics.Raycast(theCam.transform.position, theCam.transform.forward, out actionInfo, 100))
+        if (Physics.Raycast(theCam.transform.position, theCam.transform.forward, out actionInfo, 1))
         {
             manager.Contact(actionInfo);
         }

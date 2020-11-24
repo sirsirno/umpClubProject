@@ -2357,7 +2357,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: d2974df532a833f4287c650813ea59bd,
         type: 3}
       propertyPath: m_Name
-      value: firedoorMesh
+      value: Door3Out
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2974df532a833f4287c650813ea59bd, type: 3}

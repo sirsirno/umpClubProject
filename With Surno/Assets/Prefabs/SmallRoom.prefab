@@ -9963,7 +9963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 574362095022369963}
   m_Layer: 0
-  m_Name: Door4
+  m_Name: Door4In
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16776,7 +16776,7 @@ GameObject:
   m_Component:
   - component: {fileID: 574362095605472570}
   m_Layer: 0
-  m_Name: Door1
+  m_Name: Door1In
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18199,7 +18199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 574362095755134861}
   m_Layer: 0
-  m_Name: Door3
+  m_Name: Door3In
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18999,7 +18999,7 @@ GameObject:
   m_Component:
   - component: {fileID: 574362095826099364}
   m_Layer: 0
-  m_Name: Door2
+  m_Name: Door2In
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

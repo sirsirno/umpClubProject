@@ -12,13 +12,10 @@ public class GameManager : MonoBehaviour
     private GameObject talkP;
 
     [SerializeField]
-    private GameObject RP1;
+    private GameObject[] HWIn;  
     [SerializeField]
-    private GameObject RP2;
-    [SerializeField]
-    private GameObject RP3;
-    [SerializeField]
-    private GameObject RP4;
+    private GameObject[] HWOut;
+
 
     [SerializeField]
     private GameObject player;
@@ -55,32 +52,56 @@ public class GameManager : MonoBehaviour
             {
                 talkText.text = "아무튼 책";
             }
-            if (scanObj.transform.name == "Door1")
+            if (scanObj.transform.name == "Door1In")
             {
-                talkText.text = "문 1번";
+                talkText.text = "문 1번IN";
                 player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
-                player.transform.position = RP1.transform.position;
+                player.transform.position = HWIn[0].transform.position;
             }
-            if (scanObj.transform.name == "Door2")
+            if (scanObj.transform.name == "Door2In")
             {
-                talkText.text = "문 2번";
+                talkText.text = "문 2번IN";
                 player.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                player.transform.position = RP2.transform.position;
+                player.transform.position = HWIn[1].transform.position;
 
             }
-            if (scanObj.transform.name == "Door3")
+            if (scanObj.transform.name == "Door3In")
             {
-                talkText.text = "문 3번";
+                talkText.text = "문 3번IN";
                 player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
-                player.transform.position = RP3.transform.position;
+                player.transform.position = HWIn[2].transform.position;
 
             }
-            if (scanObj.transform.name == "Door4")
+            if (scanObj.transform.name == "Door4In")
             {
-                talkText.text = "문 4번";
+                talkText.text = "문 4번IN";
                 player.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                player.transform.position = RP4.transform.position;
+                player.transform.position = HWIn[3].transform.position;
 
+            }
+            if(scanObj.transform.name == "Door1Out")
+            {
+                talkText.text = "문 1번OUT";
+                player.transform.localRotation = Quaternion.Euler(0, -180, 0);
+                player.transform.position = HWOut[0].transform.position;
+            }
+            if (scanObj.transform.name == "Door2Out")
+            {
+                talkText.text = "문 2번OUT";
+                player.transform.localRotation = Quaternion.Euler(0, -90, 0);
+                player.transform.position = HWOut[1].transform.position;
+            }
+            if (scanObj.transform.name == "Door3Out")
+            {
+                talkText.text = "문 3번OUT";
+                player.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                player.transform.position = HWOut[2].transform.position;
+            }
+            if (scanObj.transform.name == "Door4Out")
+            {
+                talkText.text = "문 4번OUT";
+                player.transform.localRotation = Quaternion.Euler(0, 90, 0);
+                player.transform.position = HWOut[3].transform.position;
             }
             StartCoroutine("Panel");
         }
