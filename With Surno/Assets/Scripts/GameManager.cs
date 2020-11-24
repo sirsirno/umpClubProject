@@ -23,9 +23,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int stack = 0;
 
+    private int lastRoom;
+
     private void Awake()
     {
         stack = 0;
+        lastRoom = 4;
     }
     public void ReAction()
     {
@@ -44,64 +47,85 @@ public class GameManager : MonoBehaviour
     {
         if (scanObj.transform.CompareTag("Object"))
         {
-            if(scanObj.transform.name == "Capsule")
+            switch (scanObj.transform.name)
             {
-                talkText.text = "이것은 캡슐";
-            }
-            if(scanObj.transform.name == "Book")
-            {
-                talkText.text = "아무튼 책";
-            }
-            if (scanObj.transform.name == "Door1In")
-            {
-                talkText.text = "문 1번IN";
-                player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
-                player.transform.position = HWIn[0].transform.position;
-            }
-            if (scanObj.transform.name == "Door2In")
-            {
-                talkText.text = "문 2번IN";
-                player.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                player.transform.position = HWIn[1].transform.position;
-
-            }
-            if (scanObj.transform.name == "Door3In")
-            {
-                talkText.text = "문 3번IN";
-                player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
-                player.transform.position = HWIn[2].transform.position;
-
-            }
-            if (scanObj.transform.name == "Door4In")
-            {
-                talkText.text = "문 4번IN";
-                player.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                player.transform.position = HWIn[3].transform.position;
-
-            }
-            if(scanObj.transform.name == "Door1Out")
-            {
-                talkText.text = "문 1번OUT";
-                player.transform.localRotation = Quaternion.Euler(0, -180, 0);
-                player.transform.position = HWOut[0].transform.position;
-            }
-            if (scanObj.transform.name == "Door2Out")
-            {
-                talkText.text = "문 2번OUT";
-                player.transform.localRotation = Quaternion.Euler(0, -90, 0);
-                player.transform.position = HWOut[1].transform.position;
-            }
-            if (scanObj.transform.name == "Door3Out")
-            {
-                talkText.text = "문 3번OUT";
-                player.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                player.transform.position = HWOut[2].transform.position;
-            }
-            if (scanObj.transform.name == "Door4Out")
-            {
-                talkText.text = "문 4번OUT";
-                player.transform.localRotation = Quaternion.Euler(0, 90, 0);
-                player.transform.position = HWOut[3].transform.position;
+                case "Capsule":
+                    talkText.text = "이것은 캡슐";
+                    break;
+                case "Book":
+                    talkText.text = "아무튼 책";
+                    break;
+                case "Door1In":
+                    talkText.text = "문 1번IN";
+                    player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
+                    player.transform.position = HWIn[0].transform.position;
+                    lastRoom = 0;
+                    break;
+                case "Door2In":
+                    talkText.text = "문 2번IN";
+                    player.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    player.transform.position = HWIn[1].transform.position;
+                    lastRoom = 1;
+                    break;
+                case "Door3In":
+                    talkText.text = "문 3번IN";
+                    player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
+                    player.transform.position = HWIn[2].transform.position;
+                    lastRoom = 2;
+                    break;
+                case "Door4In":
+                    talkText.text = "문 4번IN";
+                    player.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    player.transform.position = HWIn[3].transform.position;
+                    lastRoom = 3;
+                    break;
+                case "Door1Out":
+                    talkText.text = "문 1번OUT";
+                    player.transform.localRotation = Quaternion.Euler(0, -180, 0);
+                    player.transform.position = HWOut[0].transform.position;
+                    lastRoom = 4;
+                    break;
+                case "Door2Out":
+                    talkText.text = "문 2번OUT";
+                    player.transform.localRotation = Quaternion.Euler(0, -90, 0);
+                    player.transform.position = HWOut[1].transform.position;
+                    lastRoom = 4;
+                    break;
+                case "Door3Out":
+                    talkText.text = "문 3번OUT";
+                    player.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    player.transform.position = HWOut[2].transform.position;
+                    lastRoom = 4;
+                    break;
+                case "Door4Out":
+                    talkText.text = "문 4번OUT";
+                    player.transform.localRotation = Quaternion.Euler(0, 90, 0);
+                    player.transform.position = HWOut[3].transform.position;
+                    lastRoom = 4;
+                    break;
+                case "DoorOut"://만약 잘못된 길에 들어갔을때
+                    stack = 0;
+                    switch (lastRoom)//마지막 통로에 따른 다른 출구위치와 플레이어 dir
+                    {
+                        case 0:
+                            player.transform.localRotation = Quaternion.Euler(0, -180, 0);
+                            player.transform.position = HWOut[0].transform.position;
+                            break;
+                        case 1:
+                            player.transform.localRotation = Quaternion.Euler(0, -90, 0);
+                            player.transform.position = HWOut[1].transform.position;
+                            break;
+                        case 2:
+                            player.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                            player.transform.position = HWOut[2].transform.position;
+                            break;
+                        case 3:
+                            player.transform.localRotation = Quaternion.Euler(0, 90, 0);
+                            player.transform.position = HWOut[3].transform.position;
+                            break;
+                    }
+                    break;
+                    
             }
             StartCoroutine("Panel");
         }
