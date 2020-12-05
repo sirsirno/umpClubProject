@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         Move();
         Run();
     }
-   
+
     private void Move()
     {
         //이동
@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     {
         //Ray
         Debug.DrawRay(theCam.transform.position, theCam.transform.forward, new Color(0, 1, 0));
-        if (Physics.Raycast(theCam.transform.position, theCam.transform.forward, out actionInfo, 1))
+        if (Physics.Raycast(theCam.transform.position, theCam.transform.forward, out actionInfo, 2))
         {
             manager.Contact(actionInfo);
         }

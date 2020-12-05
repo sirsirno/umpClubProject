@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] HWOut;
 
-
     [SerializeField]
     private GameObject player;
 
