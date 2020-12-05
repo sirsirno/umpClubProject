@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     private GameObject talkP;
 
     [SerializeField]
-    private GameObject[] HWIn;  
+    private Transform[] HWIn;  
     [SerializeField]
-    private GameObject[] HWOut;
+    private Transform[] HWOut;
+    [SerializeField]
+    private Transform wrongWay;
 
     [SerializeField]
     private GameObject player;
@@ -56,50 +58,86 @@ public class GameManager : MonoBehaviour
                     break;
                 case "Door1In":
                     talkText.text = "문 1번IN";
+                    if (stack == 0)
+                    {
+                        player.transform.position = HWIn[0].position;
+                        stack++;
+                    }
+                    else
+                    {
+                        player.transform.position = wrongWay.position;
+                        stack = 0;
+                    }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
-                    player.transform.position = HWIn[0].transform.position;
                     lastRoom = 0;
                     break;
                 case "Door2In":
                     talkText.text = "문 2번IN";
+                    if(stack == 1)
+                    {
+                        player.transform.position = HWIn[1].position;
+                        stack++;
+                    }
+                    else
+                    {
+                        player.transform.position = wrongWay.position;
+                        stack = 0;
+                    }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                    player.transform.position = HWIn[1].transform.position;
                     lastRoom = 1;
                     break;
                 case "Door3In":
                     talkText.text = "문 3번IN";
+                    if(stack == 2)
+                    {
+                        player.transform.position = HWIn[2].position;
+                        stack++;
+                    }
+                    else
+                    {
+                        player.transform.position = wrongWay.position;
+                        stack = 0;
+                    }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
-                    player.transform.position = HWIn[2].transform.position;
                     lastRoom = 2;
                     break;
                 case "Door4In":
                     talkText.text = "문 4번IN";
+                    if(stack == 3)
+                    {
+                        player.transform.position = HWIn[3].position;
+                        stack++;
+                    }
+                    else
+                    {
+                        player.transform.position = wrongWay.position;
+                        stack = 0;
+                    }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                    player.transform.position = HWIn[3].transform.position;
                     lastRoom = 3;
                     break;
                 case "Door1Out":
                     talkText.text = "문 1번OUT";
                     player.transform.localRotation = Quaternion.Euler(0, -180, 0);
-                    player.transform.position = HWOut[0].transform.position;
+                    player.transform.position = HWOut[0].position;
                     lastRoom = 4;
                     break;
                 case "Door2Out":
                     talkText.text = "문 2번OUT";
                     player.transform.localRotation = Quaternion.Euler(0, -90, 0);
-                    player.transform.position = HWOut[1].transform.position;
+                    player.transform.position = HWOut[1].position;
                     lastRoom = 4;
                     break;
                 case "Door3Out":
                     talkText.text = "문 3번OUT";
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                    player.transform.position = HWOut[2].transform.position;
+                    player.transform.position = HWOut[2].position;
                     lastRoom = 4;
                     break;
                 case "Door4Out":
                     talkText.text = "문 4번OUT";
                     player.transform.localRotation = Quaternion.Euler(0, 90, 0);
-                    player.transform.position = HWOut[3].transform.position;
+                    player.transform.position = HWOut[3].position;
                     lastRoom = 4;
                     break;
                 case "DoorOut"://만약 잘못된 길에 들어갔을때
