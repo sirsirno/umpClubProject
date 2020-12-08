@@ -18,11 +18,9 @@ public class Player : MonoBehaviour
 
     private bool isRun = false;
 
-    Rigidbody rigid = null;
     [SerializeField]
     private GameManager manager;
 
-    private GameObject scanObject;
 
     private RaycastHit actionInfo;
 
@@ -32,7 +30,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rigid = gameObject.GetComponent<Rigidbody>();
         maxStamina = stamina;
     }
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     [SerializeField]
     private Text talkText;
     public bool isAction = false;
@@ -25,7 +26,10 @@ public class GameManager : MonoBehaviour
     private int stack = 0;
 
     private int lastRoom;
+    [SerializeField]
+    private GameObject tvHint;
 
+    public bool isReset;
     private void Awake()
     {
         stack = 0;
@@ -53,12 +57,15 @@ public class GameManager : MonoBehaviour
                 case "Capsule":
                     talkText.text = "이것은 캡슐";
                     break;
+                case "BookShelf":
+                    talkText.text = "비어있는 책장이다...";
+                    break;
                 case "Book":
-                    talkText.text = "아무튼 책";
+                    talkText.text = "아무것도 적혀있지않다...";
                     break;
                 case "Door1In":
-                    talkText.text = "문 1번IN";
-                    if (stack == 0)
+                    talkText.text = "문 1번IN";//서순 = 3-4-2-1
+                    if (stack == 3)
                     {
                         player.transform.position = HWIn[0].position;
                         stack++;
@@ -67,13 +74,14 @@ public class GameManager : MonoBehaviour
                     {
                         player.transform.position = wrongWay.position;
                         stack = 0;
+                        ResetStage();
                     }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
                     lastRoom = 0;
                     break;
                 case "Door2In":
                     talkText.text = "문 2번IN";
-                    if(stack == 1)
+                    if(stack == 2)
                     {
                         player.transform.position = HWIn[1].position;
                         stack++;
@@ -82,36 +90,42 @@ public class GameManager : MonoBehaviour
                     {
                         player.transform.position = wrongWay.position;
                         stack = 0;
+                        ResetStage();
                     }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0);
                     lastRoom = 1;
                     break;
                 case "Door3In":
                     talkText.text = "문 3번IN";
-                    if(stack == 2)
+                    if(stack == 0)
                     {
                         player.transform.position = HWIn[2].position;
                         stack++;
+                        isReset = true;
+                        tvHint.SetActive(true);
                     }
                     else
                     {
                         player.transform.position = wrongWay.position;
                         stack = 0;
+                        ResetStage();
                     }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
                     lastRoom = 2;
                     break;
                 case "Door4In":
                     talkText.text = "문 4번IN";
-                    if(stack == 3)
+                    if(stack == 1)
                     {
                         player.transform.position = HWIn[3].position;
                         stack++;
+                        tvHint.SetActive(false);
                     }
                     else
                     {
                         player.transform.position = wrongWay.position;
                         stack = 0;
+                        ResetStage();
                     }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0);
                     lastRoom = 3;
@@ -170,6 +184,11 @@ public class GameManager : MonoBehaviour
         {
             NotContact();
         }
+    }
+    private void ResetStage()
+    {
+        isReset = false;
+        tvHint.SetActive(false);
     }
     private void NotContact()
     {
