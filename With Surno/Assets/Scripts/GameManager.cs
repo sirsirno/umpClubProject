@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
-    [SerializeField]
-    private int stack = 0;
 
     private int lastRoom;
     [SerializeField]
@@ -32,7 +30,7 @@ public class GameManager : MonoBehaviour
     public bool isReset;
     private void Awake()
     {
-        stack = 0;
+        SaveGame.Instance.gameData.stack = 0;
         lastRoom = 4;
     }
     public void ReAction()
@@ -65,15 +63,15 @@ public class GameManager : MonoBehaviour
                     break;
                 case "Door1In":
                     talkText.text = "문 1번IN";//서순 = 3-4-2-1
-                    if (stack == 3)
+                    if (SaveGame.Instance.gameData.stack == 3)
                     {
                         player.transform.position = HWIn[0].position;
-                        stack++;
+                        SaveGame.Instance.gameData.stack++;
                     }
                     else
                     {
                         player.transform.position = wrongWay.position;
-                        stack = 0;
+                        SaveGame.Instance.gameData.stack = 0;
                         ResetStage();
                     }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
@@ -81,15 +79,15 @@ public class GameManager : MonoBehaviour
                     break;
                 case "Door2In":
                     talkText.text = "문 2번IN";
-                    if(stack == 2)
+                    if(SaveGame.Instance.gameData.stack == 2)
                     {
                         player.transform.position = HWIn[1].position;
-                        stack++;
+                        SaveGame.Instance.gameData.stack++;
                     }
                     else
                     {
                         player.transform.position = wrongWay.position;
-                        stack = 0;
+                        SaveGame.Instance.gameData.stack = 0;
                         ResetStage();
                     }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -97,17 +95,17 @@ public class GameManager : MonoBehaviour
                     break;
                 case "Door3In":
                     talkText.text = "문 3번IN";
-                    if(stack == 0)
+                    if(SaveGame.Instance.gameData.stack == 0)
                     {
                         player.transform.position = HWIn[2].position;
-                        stack++;
-                        isReset = true;
+                        SaveGame.Instance.gameData.stack++;
+                        ResetStage();
                         tvHint.SetActive(true);
                     }
                     else
                     {
                         player.transform.position = wrongWay.position;
-                        stack = 0;
+                        SaveGame.Instance.gameData.stack = 0;
                         ResetStage();
                     }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0); ;
@@ -115,16 +113,16 @@ public class GameManager : MonoBehaviour
                     break;
                 case "Door4In":
                     talkText.text = "문 4번IN";
-                    if(stack == 1)
+                    if(SaveGame.Instance.gameData.stack == 1)
                     {
                         player.transform.position = HWIn[3].position;
-                        stack++;
+                        SaveGame.Instance.gameData.stack++;
                         tvHint.SetActive(false);
                     }
                     else
                     {
                         player.transform.position = wrongWay.position;
-                        stack = 0;
+                        SaveGame.Instance.gameData.stack = 0;
                         ResetStage();
                     }
                     player.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -155,7 +153,7 @@ public class GameManager : MonoBehaviour
                     lastRoom = 4;
                     break;
                 case "DoorOut"://만약 잘못된 길에 들어갔을때
-                    stack = 0;
+                    SaveGame.Instance.gameData.stack = 0;
                     switch (lastRoom)//마지막 통로에 따른 다른 출구위치와 플레이어 dir
                     {
                         case 0:
@@ -187,7 +185,7 @@ public class GameManager : MonoBehaviour
     }
     private void ResetStage()
     {
-        isReset = false;
+        Hint.instance.HintSoundOn();
         tvHint.SetActive(false);
     }
     private void NotContact()

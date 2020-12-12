@@ -11,7 +11,6 @@ public class Sound
 }
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager instance;
 
     [Header("사운드 등록")]
     [SerializeField] Sound[] bgmSounds;
@@ -22,11 +21,19 @@ public class SoundManager : MonoBehaviour
     [Header("효과음 플레이어")]
     [SerializeField] AudioSource[] sfxPlayer;
 
+    private int _x = 100;
     public float sfxVolume = 1;
     void Start()
     {
-        instance = this;
         BgmPlay();
+    }
+    private void Update()
+    {
+        bgmPlayer.volume = OptionManager.Instance._option.BGM;
+        if (_x != 100)
+            sfxPlayer[_x].volume = OptionManager.Instance._option.SFX;
+        else
+            sfxPlayer[_x].volume = 0;
     }
     private void BgmPlay()
     {
@@ -45,6 +52,7 @@ public class SoundManager : MonoBehaviour
                     if (!sfxPlayer[x].isPlaying)
                     {
                         sfxPlayer[x].clip = sfxSounds[i].clip;
+                        _x = x;
                         sfxPlayer[x].Play();
                     }
                 }
@@ -54,25 +62,4 @@ public class SoundManager : MonoBehaviour
         }
         Debug.Log("등록된 효과음이 없습니다.");
     }
-    public void StopSE(string _soundName)
-    {
-        for (int i = 0; i < sfxSounds.Length; i++)
-        {
-            if (_soundName == sfxSounds[i].soundName)
-            {
-                for (int x = 0; x < sfxPlayer.Length; x++)
-                {
-                    if (sfxPlayer[x].isPlaying)
-                    {
-                        sfxPlayer[x].clip = sfxSounds[i].clip;
-                        sfxPlayer[x].Stop();
-                    }
-                }
-                Debug.Log("모든 효과음 플레이어가 사용중입니다!!");
-                return;
-            }
-        }
-        Debug.Log("등록된 효과음이 없습니다.");
-    }
-
 }
