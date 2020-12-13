@@ -29,9 +29,9 @@ public class SoundManager : MonoBehaviour
     }
     private void Update()
     {
-        bgmPlayer.volume = OptionManager.Instance._option.BGM;
+        bgmPlayer.volume = SaveGame.Instance._gameData.BGM;
         if (_x != 100)
-            sfxPlayer[_x].volume = OptionManager.Instance._option.SFX;
+            sfxPlayer[_x].volume = SaveGame.Instance._gameData.SFX;
         else
             sfxPlayer[_x].volume = 0;
     }

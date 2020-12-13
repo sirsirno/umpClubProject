@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: fb1e402e3abaf424fb9b29e58263c176
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: HSBomBaram 3.0
+  fontNames:
+  - HSBomBaram 3.0
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3141dcf2d7543a54f8fe2b7ac77efc91, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

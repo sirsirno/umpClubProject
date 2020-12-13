@@ -6,27 +6,39 @@ public class Event : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] FirstjumpScare;
-    private void Update()
+
+    private Player player;
+
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            StartEvent();
+        player = GetComponent<Player>();
     }
-    public void StartEvent()
+    private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(Scare());
+
+        if (other.gameObject.name == "Door")
+        {
+            StartCoroutine(Scare());
+            player.isSlow = true;
+            SaveGame.Instance._gameData.mouseSensitivity -= 90;
+        }
     }
 
     private IEnumerator Scare()
     {
         FirstjumpScare[0].SetActive(false);
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(2f);
         FirstjumpScare[1].SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         FirstjumpScare[1].SetActive(false);
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.2f);
         FirstjumpScare[2].SetActive(true);
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.2f);
         FirstjumpScare[2].SetActive(false);
         FirstjumpScare[3].SetActive(true);
+        yield return new WaitForSeconds(.2f);
+        player.isSlow = false;
+        SaveGame.Instance._gameData.mouseSensitivity += 90;
+        LoadingSceneController.LoadScene("inGameScene");
     }
 }

@@ -16,8 +16,8 @@ public class MouseLock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * OptionManager.Instance._option.mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * OptionManager.Instance._option.mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * SaveGame.Instance._gameData.mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * SaveGame.Instance._gameData.mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);

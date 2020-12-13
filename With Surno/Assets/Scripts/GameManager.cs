@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
+    [SerializeField] 
+    private GameObject HintSound;
+
 
     private int lastRoom;
     [SerializeField]
@@ -32,6 +36,10 @@ public class GameManager : MonoBehaviour
     {
         SaveGame.Instance.gameData.stack = 0;
         lastRoom = 4;
+    }
+    private void Start()
+    {
+        StartCoroutine(StartEvent());
     }
     public void ReAction()
     {
@@ -46,6 +54,7 @@ public class GameManager : MonoBehaviour
         }
        
     }
+    #region Contact
     public void Contact(RaycastHit scanObj)
     {
         if (scanObj.transform.CompareTag("Object"))
@@ -158,34 +167,44 @@ public class GameManager : MonoBehaviour
                     {
                         case 0:
                             player.transform.localRotation = Quaternion.Euler(0, -180, 0);
-                            player.transform.position = HWOut[0].transform.position;
+                            player.transform.position = HWOut[0].position;
                             break;
                         case 1:
                             player.transform.localRotation = Quaternion.Euler(0, -90, 0);
-                            player.transform.position = HWOut[1].transform.position;
+                            player.transform.position = HWOut[1].position;
                             break;
                         case 2:
                             player.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                            player.transform.position = HWOut[2].transform.position;
+                            player.transform.position = HWOut[2].position;
                             break;
                         case 3:
                             player.transform.localRotation = Quaternion.Euler(0, 90, 0);
-                            player.transform.position = HWOut[3].transform.position;
+                            player.transform.position = HWOut[3].position;
                             break;
                     }
                     break;
                     
             }
-            StartCoroutine("Panel");
+            talkP.SetActive(true);
+            Invoke("PanelOff",2);
         }
         else
         {
             NotContact();
         }
     }
+    #endregion
+
+    public void HintSoundOn()
+    {
+        if (HintSound.activeSelf)
+            HintSound.SetActive(false);
+        else
+            HintSound.SetActive(true);
+    }
     private void ResetStage()
     {
-        Hint.instance.HintSoundOn();
+        HintSoundOn();
         tvHint.SetActive(false);
     }
     private void NotContact()
@@ -193,10 +212,27 @@ public class GameManager : MonoBehaviour
         Debug.Log("아무튼 아니야");
 
     }
-    IEnumerator Panel()
+    private void PanelOff()
+    {
+        talkP.SetActive(false);
+    }
+    private IEnumerator StartEvent()
     {
         talkP.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        talkText.text = "머리가 깨질듯 하다...";
+        yield return new WaitForSeconds(3);
+
+        talkP.SetActive(true);
+        talkText.text = "왜 이곳에 왔는지 모르겠다...";
+        yield return new WaitForSeconds(2);
+
+        talkP.SetActive(true);
+        talkText.text = "이곳을 탈출 해야 할 것 같다";
+        yield return new WaitForSeconds(3);
+
+        talkP.SetActive(true);
+        talkText.text = "일단 정보들을 찾아보자";
+        yield return new WaitForSeconds(3);
         talkP.SetActive(false);
     }
 }

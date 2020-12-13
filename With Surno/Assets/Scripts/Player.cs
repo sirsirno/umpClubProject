@@ -12,11 +12,15 @@ public class Player : MonoBehaviour
     private float moveSpeed = 1.0f;
     [SerializeField]
     private float runSpeed = 1.5f;
+    [SerializeField]
+    private float slowSpeed = 0.5f;
 
     private float stamina = 100f;
     private float maxStamina;
 
     private bool isRun = false;
+
+    public bool isSlow = false;
 
     [SerializeField]
     private GameManager manager;
@@ -56,8 +60,11 @@ public class Player : MonoBehaviour
             moveVelocity = transform.TransformDirection(Vector3.left);
         else if (Input.GetAxisRaw("Horizontal") > 0)
             moveVelocity = transform.TransformDirection(Vector3.right);
-        transform.position += moveVelocity * speed * Time.deltaTime;
-       
+        if (isSlow)
+            transform.position += moveVelocity * slowSpeed * Time.deltaTime;
+        else
+            transform.position += moveVelocity * speed * Time.deltaTime;
+
     }
     private void Run()
     {
@@ -72,8 +79,8 @@ public class Player : MonoBehaviour
             stamina += .5f;
         if (!Input.GetKey(KeyCode.LeftShift) || stamina <= 0)
         {
-            isRun = false;
             speed = moveSpeed;
+            isRun = false;
         }
         stamina += 0.1f * Time.deltaTime;
     }
